@@ -145,6 +145,11 @@ app.get("/listings/filter",isLoggedIn, wrapAsync(async (req, res) => {
     res.render("listings/index.ejs", { allListings: listings });
 }));
 
+app.get('/', (req, res) => {
+    res.send('Hello World'); // or render an EJS template
+  });
+  
+
 
 
 //map
