@@ -147,6 +147,11 @@ app.get("/listings/filter",isLoggedIn, wrapAsync(async (req, res) => {
 
 
 
+app.get('/', (req, res) => {
+    res.redirect('/listings'); // Redirect to the listings page or render a homepage
+});
+
+
 
 
 
