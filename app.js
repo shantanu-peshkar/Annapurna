@@ -146,9 +146,7 @@ app.get("/listings/filter",isLoggedIn, wrapAsync(async (req, res) => {
 }));
 
 
-app.get("/",(req,res)=>{
-    res.send("hi iam root");
-})
+
 
 
 
