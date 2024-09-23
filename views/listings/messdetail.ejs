@@ -1,0 +1,39 @@
+<% layout("/layouts/boilerplate") -%>
+
+<div class="container mt-4">
+    <h1 class="mb-4">Add Mess Details</h1>
+
+    <form action="/listings/<%= listing._id %>/messdetails" method="POST" class="row g-3">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="ownerName" class="form-label">Owner Name:</label>
+                <input type="text" id="ownerName" name="messDetail[ownerName]" class="form-control" required>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="contactDetails" class="form-label">Contact Details:</label>
+                <input type="text" id="contactDetails" name="messDetail[contactDetails]" class="form-control" required>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="messDescription" class="form-label">Mess Description:</label>
+                <textarea id="messDescription" name="messDetail[messDescription]" class="form-control" rows="4" ></textarea>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="termsAndConditions" class="form-label">Terms and Conditions:</label>
+                <textarea id="termsAndConditions" name="messDetail[termsAndConditions]" class="form-control" rows="4" required></textarea>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>

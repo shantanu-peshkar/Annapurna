@@ -1,0 +1,21 @@
+<% layout("/layouts/boilerplate") -%>
+
+
+<form action="/listings/<%= listing._id %>/menus" method="POST" class="row g-3 needs-validation" novalidate enctype="multipart/form-data">
+    <div class="mb-3 mt-3">
+        <label for="url" class="form-label">Upload Menu Image</label>
+        <input name="menu[image]" id="url"  type="file" class="form-control" required>
+        <div class="invalid-feedback">Please provide a valid URL.</div>
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="description" class="form-label">Menu Description</label>
+        <textarea name="menu[description]" id="description" cols="30" rows="5" class="form-control" required ></textarea>
+        <div class="invalid-feedback">Please provide a menu description.</div>
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="day" class="form-label">Day</label>
+        <input name="menu[day]" id="day" placeholder="Enter day" class="form-control" required>
+        <div class="invalid-feedback">Please provide a valid day.</div>
+    </div>
+    <button class="btn btn-outline-dark" type="submit">Submit</button>
+</form>

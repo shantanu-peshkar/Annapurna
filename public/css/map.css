@@ -1,0 +1,39 @@
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100vh; /* Full viewport height */
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+      
+        #form-container {
+            position: relative;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px; /* Add space between the form and the map */
+        }
+      
+        #address {
+            width: 100%; /* Full width of the form container */
+        }
+      
+        #map-container {
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            width: 600px; /* Fixed width for the map container */
+            height: 600px; /* Fixed height for the map container */
+        }
+      
+        #map {
+            width: 100%; /* Make the map fill the container */
+            height: 100%; /* Make the map fill the container */
+        }
+    

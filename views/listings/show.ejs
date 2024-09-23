@@ -1,0 +1,215 @@
+<% layout("/layouts/boilerplate") -%>
+<body>
+
+
+    <!-- Running strip for offers -->
+    <div class="offer-strip ">
+      <marquee behavior="scroll" direction="left" class="mt-3">
+          <strong>Special Offer: </strong> Get 10% off on your first month! &nbsp;&nbsp;&nbsp; 
+          <strong>Limited Time Deal: </strong> Refer a friend and get ₹500 off! &nbsp;&nbsp;&nbsp; 
+          <strong>Festive Discount: </strong> Up to 15% off for Diwali bookings!
+      </marquee>
+  </div>
+  
+<!-- CSS for styling the offer strip -->
+<style>
+  .offer-strip {
+      background-color: #ffdf00; /* Yellow background to highlight the offers */
+      color: #000; /* Black text for offers */
+      padding: 10px 0; /* Padding to give some space around the text */
+      font-size: 1.2rem; /* Font size for better readability */
+      font-weight: bold; /* Bold text for offers */
+      border-bottom: 2px solid #ffae00; /* Add a border for styling */
+      text-align: center; /* Center-align the text */
+     
+      border-radius: 15px;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="container mt-4">
+    <!-- Listing Title -->
+    <div class="row">
+      <div class="col-8 offset-2">
+        <h3><%= listing.title %></h3>
+      </div>
+    </div>
+
+    <!-- Listing Image and Details -->
+    <div class="row">
+      <div class="col-md-6 offset-2">
+        <div class="card mb-4">
+          <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_img">
+          <div class="card-body">
+            <p class="card-text">Owner <%= listing.owner.username %></p>
+            <p class="card-text"> <%= listing.description %></p>
+            <p class="card-text"><strong>Price:</strong> &#8377; <%= listing.price.toLocaleString("en-IN") %></p>
+            <p class="card-text"><strong>Location:</strong> <%= listing.location %></p>
+            <p class="card-text"><strong>City:</strong> <%= listing.City %></p>
+            <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
+              <a href="/listings/<%= listing._id %>/messdetails/new" class="btn btn-dark">Add/Edit Mess Details</a>
+            <% } %>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <!-- Edit and Delete Buttons -->
+     <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
+      <div class="row mb-3">
+        <div class="col-md-6 offset-2 d-flex justify-content-between">
+          <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark">Edit</a>
+          <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
+            <button class="btn btn-dark delete-btn"><i class="fa-solid fa-trash token-delete"></i></button>
+          </form>
+          <a href="/listings/<%= listing._id %>/menu" class="btn btn-dark">Create Menu</a>
+        </div>
+      </div>
+  
+     <% } %>
+   
+    
+    <!-- Leave a Review Section -->
+    
+      <div class="col-8 offset-2 mb-3">
+      <hr>
+      <h4>Leave a Review</h4>
+      <form action="/listings/<%= listing._id %>/reviews" method="POST" class="row g-3 needs-validation" novalidate>
+        <div class="mb-3">
+          <!-- <label for="rating" class="form-label">Rating</label> -->
+          <!-- <input type="range" min="1" max="5" id="rating" name="review[rating]" class="form-range" required>
+          <div class="invalid-feedback">Please provide a rating.</div> -->
+          <div class="mb-3 mt-3">
+            <label for="rating" class="form-label">Rating</label>
+          <fieldset class="starability-slot">
+            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
+            <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+            <label for="first-rate1" title="Terrible">1 star</label>
+            <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+            <label for="first-rate2" title="Not good">2 stars</label>
+            <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+            <label for="first-rate3" title="Average">3 stars</label>
+            <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+            <label for="first-rate4" title="Very good">4 stars</label>
+            <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+            <label for="first-rate5" title="Amazing">5 stars</label>
+          </fieldset>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="comment" class="form-label">Comments</label>
+          <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
+          <div class="invalid-feedback">Please provide a comment.</div>
+        </div>
+        <button class="btn btn-outline-dark" type="submit">Submit</button>
+      </form>
+     
+    
+
+     
+        <hr>
+        <h4>All Reviews</h4>
+        <div class="row">
+          <% for(review of listing.reviews) { %>
+            <div class="col-md-6 mb-3 "> <!-- Each review takes half width on medium screens and above -->
+              <div class="card h-100" style="box-shadow:0 2px 4px;">
+                <div class="card-body ms-2 mb-2">
+                  <h5 class="card-title"><%= review.author.username %></h5>
+                  <p class="card-text"><%= review.comment %></p>
+                  <p class="starability-result card-text" data-rating="<%=review.rating%>"></p>
+                </div >
+               
+                  <form class="mb-3 ms-2" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                    <button class=" btn btn-dark"><i class="fa-solid fa-trash token-delete"></i></button>
+                </form>
+                
+               
+              </div>
+            </div>
+          <% } %>
+        </div>
+      
+      
+      
+    </div>
+
+    <!-- Menu Section -->
+    <div class="col-8 offset-2 mt-4">
+      <h4>Menu</h4>
+      <div class="row">
+        <% for(menu of listing.menus) { %>
+          <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+              <img src="<%= menu.image.url %>" class="card-img-top" alt="menu_image" style="height: 15rem; object-fit: cover;">
+              <div class="card-body">
+                <p class="card-text"><strong>Menu:</strong> <%= menu.description %></p>
+                <p class="card-text"><strong>Day:</strong> <%= menu.day %></p>
+                <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
+                  <form class="mb-3 ms-2" method="POST" action="/listings/<%= listing._id %>/menus/<%= menu._id %>?_method=DELETE">
+                    <button class="btn btn-dark"><i class="fa-solid fa-trash token-delete"></i></button>
+                </form>
+                <% } %>
+               
+                
+              </div>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    </div>
+
+
+    <% if (listing.messDetail) { %>
+      <div class="col-8 offset-2 mt-4">
+        <h4>Mess Details</h4>
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+            <tbody>
+              <tr>
+                <th>Owner Name</th>
+                <td><%= listing.messDetail.ownerName %></td>
+              </tr>
+              <tr>
+                <th>Contact Details</th>
+                <td><%= listing.messDetail.contactDetails %></td>
+              </tr>
+              <tr>
+                <th>Mess Description</th>
+                <td><%= listing.messDetail.messDescription %></td>
+              </tr>
+              <tr>
+                <th>Terms and Conditions</th>
+                <td><%= listing.messDetail.termsAndConditions %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% } %>
+
+    
+ 
+
+ 
+<div class="col-8 offset-2 mt-4">
+  <form action="/listings/<%= listing._id %>/token" method="POST">
+    <button class="btn btn-primary">Token<i class="fa-solid fa-repeat"></i></button>
+</form>
+<br>
+
+<a href="/listings/<%= listing._id %>/tokens" class="btn btn-info">View Token <i class="fa-solid fa-list"></i></a>
+  </div>
+</div>
+
+    
+ 
