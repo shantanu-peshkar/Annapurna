@@ -146,8 +146,9 @@ app.get("/listings/filter",isLoggedIn, wrapAsync(async (req, res) => {
 }));
 
 app.get('/', (req, res) => {
-    res.send('Hello World'); // or render an EJS template
+    res.render('index'); // This assumes you have an 'index.ejs' file in your 'views' folder
   });
+  
   
 
 
