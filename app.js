@@ -145,11 +145,10 @@ app.get("/listings/filter",isLoggedIn, wrapAsync(async (req, res) => {
     res.render("listings/index.ejs", { allListings: listings });
 }));
 
-app.get('/', (req, res) => {
-    res.render('index'); // This assumes you have an 'index.ejs' file in your 'views' folder
-  });
-  
-  
+
+app.get("/",(req,res)=>{
+    res.send("hi iam root");
+})
 
 
 
